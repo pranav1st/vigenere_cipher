@@ -19,6 +19,8 @@ void file_encryption(char key[])
         {
             if (((ch >= 'A') && (ch <= 'Z')) || (ch==' '))
                 ciphertext_len++;
+            if (ch=='\n')
+                break;
         }
         //printf("cipher text length: %d\n", ciphertext_len);
 
