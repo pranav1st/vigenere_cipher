@@ -17,7 +17,7 @@ void file_encryption(char key[])
         int ciphertext_len = 0;
         for (int i = 0; (ch = fgetc(f1)) != EOF; i++)
         {
-            if ((ch >= 'A') && (ch <= 'Z'))
+            if (((ch >= 'A') && (ch <= 'Z')) || (ch==' '))
                 ciphertext_len++;
         }
         //printf("cipher text length: %d\n", ciphertext_len);
@@ -35,7 +35,15 @@ void file_encryption(char key[])
         newKey[i] = '\0';
         printf("\nNew Generated Key: %s\n", newKey);
 
-        
+        char encryptedmsg[ciphertext_len];
+        char text[ciphertext_len];
+        fseek(f1, 0, SEEK_SET);
+        fscanf(f1, "%[^\n]", text);
+        //converting text to cipher text using vigenere cipher algorithm
+        for(i = 0; i < ciphertext_len; ++i)
+            encryptedmsg[i] = ((text[i] + newKey[i]) % 26) + 'A';
+        encryptedmsg[i] = '\0'; //denote the end of the string
+        printf("Encrypted Message: %s",encryptedmsg);
     }
     fclose(f1);
 }
